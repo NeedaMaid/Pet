@@ -1,0 +1,22 @@
+.input {
+    display: inline-block;
+    width: 200px;
+    margin: 5px auto;
+    padding: 5px 10px;
+    border: 1px solid #333333;
+    border-radius: 50px;
+    outline: none; /*取消焦点*/
+}
+
+.submit {
+    width: 220px;
+}
+
+form {
+    margin: auto;
+    width: 400px;
+}
+
+p {
+    display: block;
+}

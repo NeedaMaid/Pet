@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            background: url(Desert.jpg) no-repeat 0px 0px;
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            -moz-background-size: 100% 100%;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+
+        #loginDiv {
+            width: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 300px;
+            background-color: rgba(75, 81, 95, 0.3);
+            box-shadow: 7px 7px 17px rgba(52, 56, 66, 0.5);
+            border-radius: 5px;
+        }
+
+        #name_trip {
+            margin-left: 50px;
+            color: red;
+        }
+
+        p {
+            margin-top: 30px;
+            margin-left: 20px;
+            color: azure;
+        }
+
+        input {
+            margin-left: 15px;
+            border-radius: 5px;
+            border-style: hidden;
+            height: 30px;
+            width: 140px;
+            background-color: rgba(216, 191, 216, 0.5);
+            outline: none;
+            color: #f0edf3;
+            padding-left: 10px;
+        }
+
+        .button {
+            border-color: cornsilk;
+            background-color: rgba(100, 149, 237, .7);
+            color: aliceblue;
+            border-style: hidden;
+            border-radius: 5px;
+            width: 100px;
+            height: 31px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+<div id="loginDiv">
+    <form action="" id="form">
+        <h1 style="text-align: center;color: aliceblue;">LOGIN IN</h1>
+        <p>UserName:<input onblur="ajaxValidate()" class="email" id="userNname" type="text"></p>
+        <label id="emailValidate" style="position: absolute;color: red;left: 250px;"></label>
+        <p>Password: <input id="password" type="password"><label id="password_trip"></label></p>
+        <div style="text-align: center;margin-top: 30px;">
+            <input type="submit" class="button" value="login up">
+            <input type="reset" class="button" value="reset">
+        </div>
+    </form>
+</div>
+
+</body>
+</html>
+
+<script type="text/javascript">
+    var xhr = false;
+
+    function createXHR() {
+        try {
+            xhr = new XMLHttpRequest();
+        } catch (e) {
+            try {
+                xhr = new ActiveXObject("Microsoft.XMLHTTP");
+            } catch (e1) {
+                xhr = null;
+            }
+        }
+        if (!xhr) {
+            alert("初始化XMLHttpRequest对象失败");
+        }
+    }
+
+    function ajaxValidate() {
+        var emailObj = document.getElementsByClassName("email")[0];
+        emailObj = emailObj.value;
+        createXHR();
+        var pattern = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
+        var url = "/PetParadise/laji";
+        var content = "type=" + pattern.test(emailObj) + "&email=" + emailObj;
+        console.log(content);
+        xhr.open("POST", url, true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                document.getElementById("emailValidate").innerHTML = xhr.responseText;
+            }
+        };
+        /*xhr.setRequestHeader("Content-length", content.length);*/
+        xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded");
+        xhr.send(content);
+    }
+
+</script>
